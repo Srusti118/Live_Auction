@@ -98,16 +98,18 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## Demo Accounts & Evaluation Credentials
+## Collector Accounts & Demo Credentials
 
-For seamless evaluation, the top navigation includes a **1-click demo switcher**:
+For seamless evaluation, click the user profile in the top-right corner or the **"+ Budget"** button to adjust bidding funds dynamically:
 
-| Account | Email | Password | Role | Starting Balance |
+| Collector | Email | Password | Role | Starting Budget |
 |---|---|---|---|---|
-| **Alice Cooper** | `alice@bidder.com` | `password123` | Bidder | $45,000 |
-| **Bob Marley** | `bob@bidder.com` | `password123` | Bidder | $60,000 |
-| **Charlie Chaplin** | `charlie@bidder.com` | `password123` | Bidder | $30,000 |
-| **Auctioneer Sotheby** | `admin@auction.com` | `password123` | Admin / Seller | $500,000 |
+| **James Henderson** | `james@collector.com` | `password123` | Private Collector | $75,000 |
+| **Sarah Jenkins** | `sarah@collector.com` | `password123` | Art & Antiquities Collector | $120,000 |
+| **Michael Chang** | `michael@collector.com` | `password123` | Horology Enthusiast | $50,000 |
+| **Arthur Phillips** | `phillips@auctioneer.com` | `password123` | Auction Specialist (Admin) | $1,000,000 |
+
+> **Custom Budget Control**: You can deposit funds or set any exact budget amount at any time using the **"+ Budget"** button in the navigation bar.
 
 ---
 

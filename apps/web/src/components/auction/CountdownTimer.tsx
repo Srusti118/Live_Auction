@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Clock, AlertCircle } from 'lucide-react'
+import { Clock, AlertTriangle } from 'lucide-react'
 
 export interface CountdownTimerProps {
   endTime: string
@@ -50,72 +50,72 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
     <div
       className={`rounded-xl p-5 border transition-all ${
         isEndingSoon
-          ? 'bg-rose-950/30 border-rose-600/80'
-          : 'bg-slate-900 border-slate-800'
+          ? 'bg-amber-50/80 border-amber-300'
+          : 'bg-white border-slate-200'
       }`}
     >
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-        <div className="flex items-center space-x-2 text-slate-400">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div className="flex items-center space-x-1.5 text-slate-500 text-xs font-medium">
           <Clock className="w-4 h-4 text-slate-400" />
-          <span className="text-xs font-mono uppercase tracking-wider">Time Remaining</span>
+          <span>Time Remaining</span>
         </div>
 
         {extensionsCount > 0 && (
-          <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+          <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">
             Extended {extensionsCount}x (+{extensionsCount * 30}s)
           </span>
         )}
       </div>
 
-      {/* Main Countdown Numbers */}
+      {/* Main Countdown Digits */}
       <div className="py-4 text-center">
         {isClosed ? (
-          <div className="text-xl font-bold text-slate-400 uppercase tracking-wider font-mono">
-            {status === 'SOLD' ? 'Lot Closed — Sold' : 'Auction Concluded'}
+          <div className="text-xl font-bold text-slate-600 uppercase tracking-wide">
+            {status === 'SOLD' ? 'Auction Closed — Sold' : 'Auction Concluded'}
           </div>
         ) : (
-          <div className="flex items-center justify-center space-x-3 font-mono">
+          <div className="flex items-center justify-center space-x-3 text-slate-900 font-bold">
             <div className="flex flex-col items-center">
-              <span className="text-3xl sm:text-4xl font-extrabold text-white">
+              <span className="text-3xl sm:text-4xl">
                 {String(timeLeft.hours).padStart(2, '0')}
               </span>
-              <span className="text-[10px] text-slate-500 uppercase font-sans mt-0.5">Hours</span>
+              <span className="text-[10px] text-slate-400 font-normal mt-0.5">Hours</span>
             </div>
-            <span className="text-2xl text-slate-600 font-bold -mt-3">:</span>
+            <span className="text-2xl text-slate-300 -mt-3">:</span>
             <div className="flex flex-col items-center">
-              <span className="text-3xl sm:text-4xl font-extrabold text-white">
+              <span className="text-3xl sm:text-4xl">
                 {String(timeLeft.minutes).padStart(2, '0')}
               </span>
-              <span className="text-[10px] text-slate-500 uppercase font-sans mt-0.5">Mins</span>
+              <span className="text-[10px] text-slate-400 font-normal mt-0.5">Minutes</span>
             </div>
-            <span className="text-2xl text-slate-600 font-bold -mt-3">:</span>
+            <span className="text-2xl text-slate-300 -mt-3">:</span>
             <div className="flex flex-col items-center">
               <span
-                className={`text-3xl sm:text-4xl font-extrabold ${
-                  isEndingSoon ? 'text-rose-400 animate-pulse' : 'text-white'
+                className={`text-3xl sm:text-4xl ${
+                  isEndingSoon ? 'text-amber-600 animate-pulse' : 'text-slate-900'
                 }`}
               >
                 {String(timeLeft.seconds).padStart(2, '0')}
               </span>
-              <span className="text-[10px] text-slate-500 uppercase font-sans mt-0.5">Secs</span>
+              <span className="text-[10px] text-slate-400 font-normal mt-0.5">Seconds</span>
             </div>
           </div>
         )}
       </div>
 
-      {/* Clear Anti-Sniping Alert */}
+      {/* Anti-Sniping Alert Banner */}
       {isEndingSoon && (
-        <div className="mt-2 p-2.5 rounded-lg bg-rose-900/40 border border-rose-700/60 flex items-center space-x-2 text-xs text-rose-300">
-          <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+        <div className="mt-2 p-2.5 rounded-lg bg-amber-100 border border-amber-200 flex items-start space-x-2 text-xs text-amber-900">
+          <AlertTriangle className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
           <span>
-            <strong>Anti-Sniping Active:</strong> Any bid placed now extends the auction by 30 seconds.
+            <strong>Anti-Sniping Active:</strong> A late bid arrived in the last 30s. The clock automatically extends by 30 seconds for every new bid.
           </span>
         </div>
       )}
 
       {lastExtensionNotice && (
-        <div className="mt-2 p-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-center text-xs uppercase tracking-wide">
-          ⚡ {lastExtensionNotice}
+        <div className="mt-2 p-2 rounded-lg bg-slate-900 text-white font-medium text-center text-xs">
+          {lastExtensionNotice}
         </div>
       )}
     </div>

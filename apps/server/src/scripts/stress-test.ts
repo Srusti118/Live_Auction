@@ -24,9 +24,9 @@ async function runStressTest(): Promise<void> {
   await repository.saveAuction(auctionBefore)
 
   const bidders = [
-    { id: '22222222-2222-2222-2222-222222222222', name: 'Alice Cooper' },
-    { id: '33333333-3333-3333-3333-333333333333', name: 'Bob Marley' },
-    { id: '44444444-4444-4444-4444-444444444444', name: 'Charlie Chaplin' },
+    { id: '22222222-2222-2222-2222-222222222222', name: 'James Henderson' },
+    { id: '33333333-3333-3333-3333-333333333333', name: 'Sarah Jenkins' },
+    { id: '44444444-4444-4444-4444-444444444444', name: 'Michael Chang' },
   ]
 
   // Launch 50 concurrent bid requests within the same millisecond window
@@ -38,7 +38,6 @@ async function runStressTest(): Promise<void> {
 
   for (let i = 0; i < concurrentCount; i++) {
     const bidder = bidders[i % bidders.length]
-    // Generate slightly increasing bid amounts to simulate multiple competing clients
     const amount = auctionBefore.currentPrice + (i + 1) * auctionBefore.minIncrement
 
     promises.push(

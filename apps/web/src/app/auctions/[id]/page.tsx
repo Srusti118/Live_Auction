@@ -13,7 +13,7 @@ import { PriceMovementGraph } from '@/components/auction/PriceMovementGraph'
 import { LiveIntelligence } from '@/components/auction/LiveIntelligence'
 import { NotificationToast } from '@/components/ui/NotificationToast'
 import { ConcurrencySimulator } from '@/components/ui/ConcurrencySimulator'
-import { ArrowLeft, Trophy, Wifi, WifiOff, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Trophy, Wifi, WifiOff } from 'lucide-react'
 import type { Auction, Bid } from '@/types'
 
 export default function AuctionArenaPage({
@@ -46,8 +46,8 @@ export default function AuctionArenaPage({
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-24 text-center text-slate-500 font-mono text-xs">
-        Loading live bidding room...
+      <div className="max-w-7xl mx-auto px-4 py-24 text-center text-slate-400 text-xs">
+        Loading auction room...
       </div>
     )
   }
@@ -55,13 +55,13 @@ export default function AuctionArenaPage({
   if (!initialData) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-24 text-center space-y-4">
-        <p className="text-rose-400 font-bold">Lot not found or offline</p>
+        <p className="text-slate-700 font-semibold text-base">Auction not found</p>
         <Link
           href="/"
-          className="inline-flex items-center space-x-1.5 text-xs text-amber-400 hover:underline"
+          className="inline-flex items-center space-x-1.5 text-xs text-blue-600 hover:underline font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Return to Catalogue</span>
+          <span>Return to Catalog</span>
         </Link>
       </div>
     )
@@ -127,25 +127,25 @@ const AuctionArenaContent: React.FC<ContentProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-      {/* Toast Notifications */}
+      {/* Notifications */}
       <NotificationToast notifications={notifications} />
 
-      {/* Top Header & Navigation Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      {/* Top Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <Link
           href="/"
-          className="inline-flex items-center space-x-2 text-xs font-medium text-slate-400 hover:text-white transition"
+          className="inline-flex items-center space-x-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 transition"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Catalogue</span>
+          <span>Back to Auctions</span>
         </Link>
 
         <div className="flex items-center space-x-3">
           <div
-            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded text-[11px] font-mono border ${
+            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded text-xs border ${
               isConnected
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                : 'bg-rose-50 text-rose-700 border-rose-200'
             }`}
           >
             {isConnected ? (
@@ -164,30 +164,30 @@ const AuctionArenaContent: React.FC<ContentProps> = ({
         </div>
       </div>
 
-      {/* Winning Hammer Celebration Banner */}
+      {/* Winner Banner */}
       {auction.status === 'SOLD' && auction.winnerId === currentUser?.id && (
-        <div className="p-5 rounded-xl bg-amber-500/10 border border-amber-500/40 flex items-center space-x-4">
-          <div className="p-3 bg-amber-500 text-slate-950 rounded-lg">
-            <Trophy className="w-6 h-6" />
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center space-x-3">
+          <div className="p-2.5 bg-emerald-600 text-white rounded-lg">
+            <Trophy className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-white">Congratulations — Winning Bidder!</h2>
-            <p className="text-xs text-slate-300 mt-0.5">
+            <h2 className="text-sm font-bold text-emerald-950">Congratulations — You Won This Auction!</h2>
+            <p className="text-xs text-emerald-800">
               Final hammer price: ${auction.currentPrice.toLocaleString()}. Please complete settlement within 24 hours.
             </p>
           </div>
         </div>
       )}
 
-      {/* Live Presence & Intelligence Stats */}
+      {/* Live Presence Bar */}
       <LiveIntelligence intelligence={intelligence} />
 
-      {/* Main Grid: Left Details & Graph / Right Countdown & Bidding */}
+      {/* Main Grid: Left Details & Graph / Right Bidding Controls */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Column (7 cols): Photo, Overview, Pricing Table, Graph */}
+        {/* Left Column (7 cols): Picture, Details, Specs, Graph */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
-            <div className="relative h-80 sm:h-96 w-full bg-slate-950">
+          <div className="rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+            <div className="relative h-80 sm:h-96 w-full bg-slate-100">
               <img
                 src={auction.imageUrl}
                 alt={auction.title}
@@ -196,30 +196,30 @@ const AuctionArenaContent: React.FC<ContentProps> = ({
             </div>
 
             <div className="p-6 space-y-3">
-              <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                 {auction.title}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {auction.description}
               </p>
 
-              {/* Auction Specs Table */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-800/80 text-xs font-mono">
+              {/* Specs */}
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-slate-100 text-xs">
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase">Starting Bid</span>
-                  <span className="text-white font-bold text-sm">
+                  <span className="text-slate-400 block text-[11px]">Starting Bid</span>
+                  <span className="text-slate-900 font-bold text-sm">
                     ${auction.startingPrice.toLocaleString()}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase">Reserve Price</span>
-                  <span className="text-white font-bold text-sm">
+                  <span className="text-slate-400 block text-[11px]">Reserve Price</span>
+                  <span className="text-slate-900 font-bold text-sm">
                     ${auction.reservePrice.toLocaleString()}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-500 block text-[10px] uppercase">Min Increment</span>
-                  <span className="text-amber-400 font-bold text-sm">
+                  <span className="text-slate-400 block text-[11px]">Min Increment</span>
+                  <span className="text-slate-900 font-bold text-sm">
                     +${auction.minIncrement.toLocaleString()}
                   </span>
                 </div>
@@ -227,17 +227,17 @@ const AuctionArenaContent: React.FC<ContentProps> = ({
             </div>
           </div>
 
-          {/* Price Movement Chart */}
+          {/* Price Movement Graph */}
           <PriceMovementGraph data={intelligence.priceHistory} />
 
-          {/* Dedicated Evaluator Test Console */}
+          {/* Concurrency Simulator */}
           <ConcurrencySimulator
             auctionId={auctionId}
             onSimulateBids={handleSimulateBids}
           />
         </div>
 
-        {/* Right Column (5 cols): Authoritative Countdown, Bidding Controls, Bid Log */}
+        {/* Right Column (5 cols): Timer, Bid Controls, Bid History */}
         <div className="lg:col-span-5 space-y-6">
           <CountdownTimer
             endTime={auction.endTime}

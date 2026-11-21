@@ -11,6 +11,8 @@ interface AuthContextType {
   register: (email: string, password: string, name: string) => Promise<void>
   logout: () => void
   switchDemoUser: (email: string) => Promise<void>
+  updateBalance: (newBalance: number) => Promise<void>
+  depositFunds: (amount: number) => Promise<void>
   refreshProfile: () => Promise<void>
   isLoading: boolean
 }
@@ -43,8 +45,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsLoading(false)
         })
     } else {
-      // Auto login as Alice Cooper for instant demo evaluation
-      switchDemoUser('alice@bidder.com').finally(() => {
+      // Default auto-login as James Henderson for instant live testing
+      switchDemoUser('james@collector.com').finally(() => {
         setIsLoading(false)
       })
     }
@@ -81,8 +83,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       await login(email, 'password123')
     } catch {
-      // Server might not be initialized yet
+      // Server may still be starting
     }
+  }
+
+  const updateBalance = async (newBalance: number): Promise<void> => {
+    const res = await ApiClient.post<{ user: UserSummary }>('/auth/balance', {
+      balance: newBalance,
+    })
+    setUser(res.user)
+  }
+
+  const depositFunds = async (amount: number): Promise<void> => {
+    const res = await ApiClient.post<{ user: UserSummary }>('/auth/balance', {
+      depositAmount: amount,
+    })
+    setUser(res.user)
   }
 
   const refreshProfile = async (): Promise<void> => {
@@ -104,6 +120,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         register,
         logout,
         switchDemoUser,
+        updateBalance,
+        depositFunds,
         refreshProfile,
         isLoading,
       }}

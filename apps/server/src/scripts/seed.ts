@@ -10,51 +10,51 @@ export async function runSeed(): Promise<void> {
 
   const passwordHash = await bcrypt.hash('password123', 10)
 
-  // 1. Create Users
+  // 1. Realistic Collector Profiles
   const admin: User = {
     id: '11111111-1111-1111-1111-111111111111',
-    email: 'admin@auction.com',
-    name: 'Auctioneer Sotheby',
+    email: 'phillips@auctioneer.com',
+    name: 'Arthur Phillips',
     passwordHash,
     role: 'ADMIN',
-    balance: 500000,
+    balance: 1000000,
     createdAt: new Date().toISOString(),
   }
 
-  const alice: User = {
+  const james: User = {
     id: '22222222-2222-2222-2222-222222222222',
-    email: 'alice@bidder.com',
-    name: 'Alice Cooper',
+    email: 'james@collector.com',
+    name: 'James Henderson',
     passwordHash,
     role: 'BIDDER',
-    balance: 45000,
+    balance: 75000,
     createdAt: new Date().toISOString(),
   }
 
-  const bob: User = {
+  const sarah: User = {
     id: '33333333-3333-3333-3333-333333333333',
-    email: 'bob@bidder.com',
-    name: 'Bob Marley',
+    email: 'sarah@collector.com',
+    name: 'Sarah Jenkins',
     passwordHash,
     role: 'BIDDER',
-    balance: 60000,
+    balance: 120000,
     createdAt: new Date().toISOString(),
   }
 
-  const charlie: User = {
+  const michael: User = {
     id: '44444444-4444-4444-4444-444444444444',
-    email: 'charlie@bidder.com',
-    name: 'Charlie Chaplin',
+    email: 'michael@collector.com',
+    name: 'Michael Chang',
     passwordHash,
     role: 'BIDDER',
-    balance: 30000,
+    balance: 50000,
     createdAt: new Date().toISOString(),
   }
 
   await repository.createUser(admin)
-  await repository.createUser(alice)
-  await repository.createUser(bob)
-  await repository.createUser(charlie)
+  await repository.createUser(james)
+  await repository.createUser(sarah)
+  await repository.createUser(michael)
 
   // 2. Create Auctions
   const now = Date.now()
@@ -65,7 +65,7 @@ export async function runSeed(): Promise<void> {
     id: 'a1111111-1111-1111-1111-111111111111',
     title: '1968 Rolex Submariner Ref. 5513 "Meter First"',
     description:
-      'Extremely rare vintage diver with untouched matte dial, creamy tritium patina, and original riveted bracelet. Fully serviced and verified.',
+      'Untouched matte dial with creamy tritium patina, sharp original case bevels, and verified matching riveted bracelet. Accompanied by service papers.',
     imageUrl:
       'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1000',
     startingPrice: 8500,
@@ -78,7 +78,7 @@ export async function runSeed(): Promise<void> {
     originalEndTime: auction1End,
     extensionsCount: 0,
     sellerId: admin.id,
-    winnerId: alice.id,
+    winnerId: james.id,
     createdAt: new Date(now - 10 * 60 * 1000).toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -87,8 +87,8 @@ export async function runSeed(): Promise<void> {
   const bid1: Bid = {
     id: crypto.randomUUID(),
     auctionId: auction1.id,
-    bidderId: bob.id,
-    bidderName: bob.name,
+    bidderId: sarah.id,
+    bidderName: sarah.name,
     amount: 8750,
     isAccepted: true,
     reason: null,
@@ -98,8 +98,8 @@ export async function runSeed(): Promise<void> {
   const bid2: Bid = {
     id: crypto.randomUUID(),
     auctionId: auction1.id,
-    bidderId: alice.id,
-    bidderName: alice.name,
+    bidderId: james.id,
+    bidderName: james.name,
     amount: 9500,
     isAccepted: true,
     reason: null,
@@ -112,7 +112,7 @@ export async function runSeed(): Promise<void> {
     id: 'a2222222-2222-2222-2222-222222222222',
     title: 'Patek Philippe Nautilus 5711/1A-010 Stainless Steel',
     description:
-      'Iconic Gérald Genta design with black-blue gradient dial, horizontal embossing, and integrated steel bracelet. Complete set with papers.',
+      'Gérald Genta classic with horizontally embossed black-blue gradient dial, sapphire caseback, and integrated bracelet. Complete with original certificate.',
     imageUrl:
       'https://images.unsplash.com/photo-1547996160-71dfabb19283?auto=format&fit=crop&q=80&w=1000',
     startingPrice: 35000,
@@ -125,7 +125,7 @@ export async function runSeed(): Promise<void> {
     originalEndTime: auction2End,
     extensionsCount: 0,
     sellerId: admin.id,
-    winnerId: charlie.id,
+    winnerId: michael.id,
     createdAt: new Date(now - 5 * 60 * 1000).toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -133,8 +133,8 @@ export async function runSeed(): Promise<void> {
   const bid3: Bid = {
     id: crypto.randomUUID(),
     auctionId: auction2.id,
-    bidderId: charlie.id,
-    bidderName: charlie.name,
+    bidderId: michael.id,
+    bidderName: michael.name,
     amount: 38000,
     isAccepted: true,
     reason: null,
@@ -148,7 +148,7 @@ export async function runSeed(): Promise<void> {
     id: 'a3333333-3333-3333-3333-333333333333',
     title: '1965 Shelby GT350 Competition "R-Model"',
     description:
-      'One of only 34 production R-models built. Powered by the legendary 289ci HiPo V8 with race history documentation.',
+      'One of only 34 competition R-models produced. Authentic race pedigree, original chassis plate, and fully documented competition history.',
     imageUrl:
       'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?auto=format&fit=crop&q=80&w=1000',
     startingPrice: 150000,
@@ -175,12 +175,12 @@ export async function runSeed(): Promise<void> {
 
   await repository.saveAuction(auction3)
 
-  logger.info('Database seeded successfully!')
-  logger.info('Demo Logins:')
-  logger.info('  Admin:   admin@auction.com   / password123')
-  logger.info('  Bidder:  alice@bidder.com   / password123 (Balance: $45,000)')
-  logger.info('  Bidder:  bob@bidder.com     / password123 (Balance: $60,000)')
-  logger.info('  Bidder:  charlie@bidder.com / password123 (Balance: $30,000)')
+  logger.info('Database seeded successfully with authentic collector profiles!')
+  logger.info('Collector Accounts:')
+  logger.info('  James Henderson:  james@collector.com     / password123 (Balance: $75,000)')
+  logger.info('  Sarah Jenkins:    sarah@collector.com     / password123 (Balance: $120,000)')
+  logger.info('  Michael Chang:    michael@collector.com   / password123 (Balance: $50,000)')
+  logger.info('  Arthur Phillips:  phillips@auctioneer.com / password123 (Auction Specialist)')
 }
 
 if (process.argv[1] && process.argv[1].includes('seed')) {

@@ -50,4 +50,34 @@ export class AuthController {
 
     res.status(200).json({ user: AuthService.toSummary(user) })
   }
+
+  static async updateBalance(req: AuthenticatedRequest, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        res.status(401).json({ error: 'Unauthorized' })
+        return
+      }
+
+      const { balance, depositAmount } = req.body
+      const user = await repository.findUserById(req.user.id)
+      if (!user) {
+        res.status(404).json({ error: 'User not found' })
+        return
+      }
+
+      let newBalance = user.balance
+      if (typeof balance === 'number') {
+        newBalance = Math.max(0, balance)
+      } else if (typeof depositAmount === 'number') {
+        newBalance = Math.max(0, user.balance + depositAmount)
+      }
+
+      await repository.updateUserBalance(req.user.id, newBalance)
+      user.balance = newBalance
+
+      res.status(200).json({ user: AuthService.toSummary(user) })
+    } catch {
+      res.status(500).json({ error: 'Failed to update balance' })
+    }
+  }
 }

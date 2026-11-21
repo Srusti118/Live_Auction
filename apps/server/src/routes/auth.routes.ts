@@ -15,3 +15,7 @@ authRouter.post('/login', (req, res) => {
 authRouter.get('/me', authenticateJwt, (req, res) => {
   void AuthController.me(req, res)
 })
+
+authRouter.post('/balance', authenticateJwt, (req, res) => {
+  void AuthController.updateBalance(req, res)
+})

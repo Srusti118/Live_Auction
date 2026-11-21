@@ -2,7 +2,7 @@
 
 import React from 'react'
 import type { AuctionIntelligence } from '@/types'
-import { Eye, Users, Gauge, CheckCircle2 } from 'lucide-react'
+import { Eye, Users, Gauge, ShieldCheck } from 'lucide-react'
 
 export interface LiveIntelligenceProps {
   intelligence: AuctionIntelligence
@@ -11,59 +11,58 @@ export interface LiveIntelligenceProps {
 export const LiveIntelligence: React.FC<LiveIntelligenceProps> = ({ intelligence }) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <div className="bg-slate-900 rounded-lg p-3.5 border border-slate-800 flex items-center space-x-3">
-        <div className="p-2 rounded bg-slate-800 text-slate-300">
+      <div className="bg-white rounded-lg p-3.5 border border-slate-200 flex items-center space-x-3 shadow-sm">
+        <div className="p-2 rounded-md bg-slate-100 text-slate-600">
           <Eye className="w-4 h-4" />
         </div>
         <div>
-          <span className="text-[10px] font-mono uppercase text-slate-400 block tracking-wider">
-            Watching
+          <span className="text-xs text-slate-500 font-medium block">
+            Watching Now
           </span>
-          <span className="text-base font-bold text-white font-mono">
+          <span className="text-base font-bold text-slate-900">
             {intelligence.activeViewers}
           </span>
         </div>
       </div>
 
-      <div className="bg-slate-900 rounded-lg p-3.5 border border-slate-800 flex items-center space-x-3">
-        <div className="p-2 rounded bg-slate-800 text-slate-300">
+      <div className="bg-white rounded-lg p-3.5 border border-slate-200 flex items-center space-x-3 shadow-sm">
+        <div className="p-2 rounded-md bg-slate-100 text-slate-600">
           <Users className="w-4 h-4" />
         </div>
         <div>
-          <span className="text-[10px] font-mono uppercase text-slate-400 block tracking-wider">
+          <span className="text-xs text-slate-500 font-medium block">
             Active Bidders
           </span>
-          <span className="text-base font-bold text-white font-mono">
+          <span className="text-base font-bold text-slate-900">
             {intelligence.activeBidders}
           </span>
         </div>
       </div>
 
-      <div className="bg-slate-900 rounded-lg p-3.5 border border-slate-800 flex items-center space-x-3">
-        <div className="p-2 rounded bg-slate-800 text-amber-400">
+      <div className="bg-white rounded-lg p-3.5 border border-slate-200 flex items-center space-x-3 shadow-sm">
+        <div className="p-2 rounded-md bg-slate-100 text-slate-600">
           <Gauge className="w-4 h-4" />
         </div>
         <div>
-          <span className="text-[10px] font-mono uppercase text-slate-400 block tracking-wider">
-            Bid Velocity
+          <span className="text-xs text-slate-500 font-medium block">
+            Bids / Min
           </span>
-          <span className="text-base font-bold text-white font-mono">
-            {intelligence.bidsPerMinute}{' '}
-            <span className="text-xs text-slate-500 font-sans">bids/min</span>
+          <span className="text-base font-bold text-slate-900">
+            {intelligence.bidsPerMinute}
           </span>
         </div>
       </div>
 
-      <div className="bg-slate-900 rounded-lg p-3.5 border border-slate-800 flex items-center space-x-3">
-        <div className="p-2 rounded bg-slate-800 text-emerald-400">
-          <CheckCircle2 className="w-4 h-4" />
+      <div className="bg-white rounded-lg p-3.5 border border-slate-200 flex items-center space-x-3 shadow-sm">
+        <div className="p-2 rounded-md bg-emerald-50 text-emerald-600">
+          <ShieldCheck className="w-4 h-4" />
         </div>
         <div>
-          <span className="text-[10px] font-mono uppercase text-slate-400 block tracking-wider">
-            Engine State
+          <span className="text-xs text-slate-500 font-medium block">
+            Winner Guarantee
           </span>
-          <span className="text-xs font-bold text-emerald-400 font-mono tracking-wide">
-            Sub-ms Atomic
+          <span className="text-xs font-semibold text-emerald-700">
+            Exact 1 Winner
           </span>
         </div>
       </div>
